@@ -1,0 +1,17 @@
+{
+  "compilerOptions": {
+    "baseUrl": ".",
+    "rootDir": "src",
+    "outDir": "dist",
+    "paths": {
+      "src/*": [
+        "./src/*"
+      ]
+    }
+  },
+  "include": [
+    "src",
+    "src/../package.json",
+    "ambient.d.ts"
+  ]
+}
