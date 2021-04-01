@@ -8,7 +8,7 @@
     "moduleResolution": "node",
     "baseUrl": "./",
     "paths": {
-      "src/*": ["src-new/*/*"]
+      "src/*": ["azure-fn-app/*/*"]
     },
     "typeRoots": ["../node_modules/@types", "../.redwood"],
     "types": ["jest"]
