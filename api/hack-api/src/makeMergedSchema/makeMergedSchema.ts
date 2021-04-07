@@ -13,6 +13,11 @@ import { Services, GraphQLTypeWithFields } from 'src/types'
 
 import * as rootSchema from './rootSchema'
 
+/** `mapFieldsToService` function
+ *
+ * @param param0
+ * @returns
+ */
 const mapFieldsToService = ({
   fields = {},
   resolvers: unmappedResolvers,
@@ -53,7 +58,8 @@ const mapFieldsToService = ({
     return resolvers
   }, unmappedResolvers)
 
-/**
+/** `mergeResolversWithServices` function
+ *
  * This iterates over all the schemas definitions and figures out which resolvers
  * are missing, it then tries to add the missing resolvers from the corresponding
  * service.
