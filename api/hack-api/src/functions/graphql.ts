@@ -1,5 +1,4 @@
 import type { Context, ContextFunction } from 'apollo-server-core'
-import type { Config, CreateHandlerOptions } from 'apollo-server-lambda'
 import { ApolloServer } from 'apollo-server-lambda'
 import type { APIGatewayProxyEvent, Context as LambdaContext } from 'aws-lambda'
 
@@ -11,6 +10,7 @@ import {
   getPerRequestContext,
   usePerRequestContext,
 } from 'src/globalContext'
+import { GraphQLHandlerOptions } from 'src/interfaces'
 
 export type GetCurrentUser = (
   decoded: AuthContextPayload[0],
@@ -66,24 +66,6 @@ export const createContextHandler = (
   }
 }
 
-interface GraphQLHandlerOptions extends Config {
-  /**
-   * Modify the resolver and global context.
-   */
-  context?: Context | ContextFunction
-  /**
-   * An async function that maps the auth token retrieved from the request headers to an object.
-   * Is it executed when the `auth-provider` contains one of the supported providers.
-   */
-  getCurrentUser?: GetCurrentUser
-  /**
-   * A callback when an unhandled exception occurs. Use this to disconnect your prisma instance.
-   */
-  onException?: () => void
-
-  cors?: CreateHandlerOptions['cors']
-  onHealthCheck?: CreateHandlerOptions['onHealthCheck']
-}
 /**
  * Creates an Apollo GraphQL Server.
  *
@@ -117,7 +99,7 @@ export const createGraphQLHandler = ({
             return handleError(error.originalError as Error)
           })
           .then(console.log)
-          .catch(() => {})
+          .catch(() => { })
       }
       return error
     },
