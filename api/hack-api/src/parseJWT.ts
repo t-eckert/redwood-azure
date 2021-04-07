@@ -1,17 +1,13 @@
-const appMetadata = (token: {
-  decoded: { [index: string]: Record<string, unknown> }
-  namespace?: string
-}): any => {
+import type { Token } from 'src/types'
+
+const appMetadata = (token: Token): any => {
   const claim = token.namespace
     ? `${token.namespace}/app_metadata`
     : 'app_metadata'
   return token.decoded?.[claim] || {}
 }
 
-const roles = (token: {
-  decoded: { [index: string]: Record<string, unknown> }
-  namespace?: string
-}): any => {
+const roles = (token: Token): any => {
   const metadata = appMetadata(token)
   return (
     token.decoded?.roles ||
@@ -21,10 +17,7 @@ const roles = (token: {
   )
 }
 
-export const parseJWT = (token: {
-  decoded: { [index: string]: Record<string, unknown> }
-  namespace?: string
-}): any => {
+export const parseJWT = (token: Token): any => {
   return {
     appMetadata: appMetadata(token),
     roles: roles(token),
