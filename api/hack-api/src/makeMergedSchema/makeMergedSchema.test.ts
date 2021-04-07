@@ -1,9 +1,8 @@
 import { gql } from 'apollo-server-lambda'
 import { GraphQLResolveInfo } from 'graphql'
 
-import { GraphQLTypeWithFields } from '../types'
-
-import { makeMergedSchema } from './makeMergedSchema'
+import { GraphQLTypeWithFields } from 'src/types'
+import { makeMergedSchema } from 'src/makeMergedSchema/makeMergedSchema'
 
 describe('makeMergedSchema', () => {
   // Simulate `importAll`
@@ -58,36 +57,36 @@ describe('makeMergedSchema', () => {
     it('Resolver functions are mapped correctly.', () => {
       expect(
         queryFields.inResolver.resolve &&
-          queryFields.inResolver.resolve(
-            null,
-            {},
-            null,
-            {} as GraphQLResolveInfo
-          )
+        queryFields.inResolver.resolve(
+          null,
+          {},
+          null,
+          {} as GraphQLResolveInfo
+        )
       ).toEqual("I'm defined in the resolver.")
     })
 
     it('Resolver functions take preference over service functions.', () => {
       expect(
         queryFields.inResolverAndServices.resolve &&
-          queryFields.inResolverAndServices.resolve(
-            null,
-            {},
-            null,
-            {} as GraphQLResolveInfo
-          )
+        queryFields.inResolverAndServices.resolve(
+          null,
+          {},
+          null,
+          {} as GraphQLResolveInfo
+        )
       ).toEqual("I'm defined in the resolver.")
     })
 
     it('Service functions are mapped correctly.', () => {
       expect(
         queryFields.inServices.resolve &&
-          queryFields.inServices.resolve(
-            null,
-            {},
-            null,
-            {} as GraphQLResolveInfo
-          )
+        queryFields.inServices.resolve(
+          null,
+          {},
+          null,
+          {} as GraphQLResolveInfo
+        )
       ).toEqual("I'm defined in the service.")
     })
   })
@@ -99,36 +98,36 @@ describe('makeMergedSchema', () => {
     it('Resolver functions are mapped correctly', () => {
       expect(
         myOwnTypeFields.inTypeResolverAndServices.resolve &&
-          myOwnTypeFields.inTypeResolverAndServices.resolve(
-            null,
-            {},
-            null,
-            {} as GraphQLResolveInfo
-          )
+        myOwnTypeFields.inTypeResolverAndServices.resolve(
+          null,
+          {},
+          null,
+          {} as GraphQLResolveInfo
+        )
       ).toEqual("MyOwnType: I'm defined in the resolver.")
     })
 
     it('Resolver functions take preference over service functions.', () => {
       expect(
         myOwnTypeFields.inTypeResolver.resolve &&
-          myOwnTypeFields.inTypeResolver.resolve(
-            null,
-            {},
-            null,
-            {} as GraphQLResolveInfo
-          )
+        myOwnTypeFields.inTypeResolver.resolve(
+          null,
+          {},
+          null,
+          {} as GraphQLResolveInfo
+        )
       ).toEqual("MyOwnType: I'm defined in the resolver.")
     })
 
     it('Service functions are mapped correctly.', () => {
       expect(
         myOwnTypeFields.inTypeServices.resolve &&
-          myOwnTypeFields.inTypeServices.resolve(
-            null,
-            {},
-            null,
-            {} as GraphQLResolveInfo
-          )
+        myOwnTypeFields.inTypeServices.resolve(
+          null,
+          {},
+          null,
+          {} as GraphQLResolveInfo
+        )
       ).toEqual("MyOwnType: I'm defined in the services.")
     })
   })
